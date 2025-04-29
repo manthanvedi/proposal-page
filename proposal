@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Will You Be Mine?</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #fdf6f0, #fce4ec);
+      font-family: 'Georgia', serif;
+      text-align: center;
+    }
+
+    h1 {
+      color: #a0522d;
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #6b4226;
+      font-weight: 400;
+      font-size: 1.1em;
+      margin-top: 0;
+      margin-bottom: 30px;
+      max-width: 90%;
+    }
+
+    .buttons {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .buttons button {
+      padding: 10px 25px;
+      font-size: 16px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 80%;
+      box-sizing: border-box;
+    }
+
+    .yes {
+      background-color: #6b4226;
+      color: white;
+    }
+
+    .no {
+      background-color: #aaa;
+      color: white;
+    }
+
+    .image {
+      margin-top: 20px;
+    }
+
+    .image img {
+      width: 150px;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-image: url('https://emojicdn.elk.sh/🤍');
+      background-size: contain;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Will You Be Mine?</h1>
+  <h2>From the moment I met you, my world got brighter. I don’t want to imagine a life without you in it.</h2>
+  <div class="buttons">
+    <button class="yes" id="yesBtn" onclick="handleYesClick()">Yes, I will</button>
+    <button class="no" id="noBtn" onclick="handleNoClick()">Socho... Phir se socho!</button>
+  </div>
+  <div class="image">
+    <img id="mainImage" src="https://media.tenor.com/eDgHtFTNW2cAAAAi/penguin-cute.gif" alt="Cute Penguin">
+  </div>
+  <div class="hearts" id="heartContainer"></div>
+  <audio id="bgMusic">
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3">
+  </audio>
+  <button onclick="document.getElementById('bgMusic').play()">Play Music</button>
+
+  <script>
+    let yesBtn = document.getElementById("yesBtn");
+    let penguinImage = document.getElementById("mainImage");
+    let heartContainer = document.getElementById("heartContainer");
+    let clickCount = 0;
+
+    function handleNoClick() {
+      penguinImage.src = "https://media.tenor.com/-3VbSXj61S0AAAAi/penguin-angry.gif";
+      clickCount++;
+      let newSize = 16 + clickCount * 3;
+      yesBtn.style.fontSize = newSize + "px";
+      yesBtn.style.padding = (10 + clickCount) + "px " + (25 + clickCount * 1.5) + "px";
+    }
+
+    function handleYesClick() {
+      penguinImage.src = "https://media.tenor.com/w2CzU3ejHMYAAAAi/penguin-dancing.gif";
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        heart.style.width = "18px";
+        heart.style.height = "18px";
+        heartContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+      }
+      setTimeout(() => {
+        alert('I Love You ❤️');
+      }, 500);
+    }
+  </script>
+</body>
+</html>
